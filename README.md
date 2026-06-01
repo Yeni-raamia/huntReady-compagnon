@@ -89,6 +89,37 @@ Trois garde-fous :
 
 À la fin, un **journal d'intervention** (`rapport-intervention.html`) présente le score de visibilité **avant → après** et le détail des changements. L'enrichissement (Sysmon) et la centralisation (SIEM) ne sont pas modifiés automatiquement : le score plafonne tant qu'ils ne sont pas en place, ce qui désigne la suite du travail.
 
+## Enrichir la détection (Sysmon)
+
+Le maillon **Enrichissement** repose sur **Sysmon** (Microsoft Sysinternals), qui ajoute une télémétrie fine que Windows ne produit pas seul. `huntReady-sysmon.ps1` le met en place, de façon transparente et vérifiée.
+
+Ouvrir **PowerShell en administrateur** dans le dossier du projet et lancer :
+
+```powershell
+.\huntReady-sysmon.ps1
+```
+
+Le script :
+- **détecte** si Sysmon est déjà présent (idempotent : il ne réinstalle rien inutilement) ;
+- **télécharge** Sysmon depuis la **source officielle Microsoft** uniquement ;
+- **vérifie la signature numérique** Microsoft de l'exécutable *avant* toute exécution — sinon il s'arrête ;
+- **installe** Sysmon avec une **baseline de configuration intégrée et auditable**.
+
+Rien n'est téléchargé ni installé sans confirmation explicite.
+
+La baseline embarquée capte les événements à plus forte valeur pour le SOC :
+
+| Capté | Intérêt |
+|-------|---------|
+| Création de processus (ligne de commande) | Exécution suspecte |
+| Accès à LSASS | Vol d'identifiants |
+| Injection de threads distants | Évasion / post-exploitation |
+| Connexions réseau et DNS des interpréteurs | Command & Control |
+| Clés de persistance au démarrage | Maintien d'accès |
+| Flux de données alternatifs (ADS) | Dissimulation |
+
+Après installation, relancer `huntReady.ps1` : le maillon **Enrichissement** passe au vert et le score remonte.
+
 ## Famille « Outils Compagnon »
 
 huntReady appartient à une famille d'outils compagnon pour la cybersécurité opérationnelle :
