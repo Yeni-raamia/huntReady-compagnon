@@ -3,3 +3,5 @@ rapport.html
 rapport-*.json
 # Sauvegardes générées par huntReady-fix (données machine)
 sauvegardes/
+# Rapport d'intervention généré (données machine)
+rapport-intervention.html
