@@ -124,7 +124,7 @@ Après installation, relancer `huntReady.ps1` : le maillon **Enrichissement** pa
 
 ## Centralisation (Wazuh)
 
-Le dernier maillon, la **centralisation**, raccorde le poste à ton SOC via l'agent **Wazuh** : il collecte la télémétrie locale et l'envoie au manager, où elle est corrélée et conservée. C'est aussi pourquoi tous les maillons précédents sont un prérequis — Wazuh ne transporte que ce qui a déjà été généré.
+Le dernier maillon, la **centralisation**, raccorde le poste à ton SOC via l'agent **Wazuh** : il collecte la télémétrie locale et l'envoie au manager, où elle est corrélée et conservée. C'est aussi pourquoi tous les maillons précédents sont un prérequis — Wazuh ne transporte que ce qui a déjà été généré. Il ne crée rien. 
 
 Pour une installation manuelle, pas à pas et sans script, suis le **[guide de déploiement de l'agent Wazuh](docs/guide-deploiement-wazuh.pdf)** (PDF).
 
