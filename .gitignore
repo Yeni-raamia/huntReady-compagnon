@@ -1,3 +1,5 @@
 # Sorties generees par huntReady
 rapport.html
 rapport-*.json
+# Sauvegardes générées par huntReady-fix (données machine)
+sauvegardes/
