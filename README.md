@@ -63,6 +63,32 @@ Aucune dépendance externe. Compatible PowerShell 5.1 et 7. **Tout est local** :
 
 Chaque contrôle est pondéré selon sa criticité (poids 2 ou 3). Conforme rapporte les points pleins, Attention la moitié, Critique zéro.
 
+## Corriger les écarts
+
+L'audit montre *ce qui manque* ; `huntReady-fix.ps1` aide à le **corriger**. Il est volontairement séparé de l'audit, qui reste strictement non destructif.
+
+Ouvrir **PowerShell en administrateur** dans le dossier du projet et lancer :
+
+```powershell
+.\huntReady-fix.ps1
+```
+
+Le correcteur applique, **une par une et après confirmation explicite**, les corrections à la portée d'un poste local :
+
+| Correction | Maillon |
+|------------|---------|
+| Politique d'audit avancée | Génération |
+| Ligne de commande dans l'event 4688 | Capture |
+| Journalisation PowerShell (ScriptBlock, Module, Transcription) | Journalisation |
+| Capacité du journal Security | *Transversal* |
+
+Trois garde-fous :
+- **Rien sans confirmation** — chaque correction est proposée, jamais imposée.
+- **Sauvegarde avant modification** — l'état d'origine est enregistré dans `sauvegardes/`, avec la commande exacte de restauration.
+- **Idempotent** — ce qui est déjà conforme n'est jamais touché.
+
+À la fin, un **journal d'intervention** (`rapport-intervention.html`) présente le score de visibilité **avant → après** et le détail des changements. L'enrichissement (Sysmon) et la centralisation (SIEM) ne sont pas modifiés automatiquement : le score plafonne tant qu'ils ne sont pas en place, ce qui désigne la suite du travail.
+
 ## Famille « Outils Compagnon »
 
 huntReady appartient à une famille d'outils compagnon pour la cybersécurité opérationnelle :
