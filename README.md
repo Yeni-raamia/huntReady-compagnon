@@ -10,6 +10,8 @@ Toute détection moderne — **Wazuh, Splunk, Sentinel, ELK, QRadar** — repose
 
 huntReady vérifie que les capteurs essentiels à la chasse sont en place sur chaque poste, et matérialise les **techniques MITRE ATT&CK** qui passeraient inaperçues sans eux.
 
+> 📘 Pour comprendre en profondeur la télémétrie Windows — Event IDs, journaux, Sysmon, et le rôle de chaque contrôle avec des exemples concrets — lisez le **[guide pédagogique « Comprendre la télémétrie Windows »](docs/comprendre-la-telemetrie-windows.pdf)** (PDF).
+
 ## Aperçu
 
 ![Aperçu du rapport huntReady](apercu-rapport.png)
@@ -119,6 +121,12 @@ La baseline embarquée capte les événements à plus forte valeur pour le SOC :
 | Flux de données alternatifs (ADS) | Dissimulation |
 
 Après installation, relancer `huntReady.ps1` : le maillon **Enrichissement** passe au vert et le score remonte.
+
+## Centralisation (Wazuh)
+
+Le dernier maillon, la **centralisation**, raccorde le poste à ton SOC via l'agent **Wazuh** : il collecte la télémétrie locale et l'envoie au manager, où elle est corrélée et conservée. C'est aussi pourquoi tous les maillons précédents sont un prérequis — Wazuh ne transporte que ce qui a déjà été généré.
+
+Pour une installation manuelle, pas à pas et sans script, suis le **[guide de déploiement de l'agent Wazuh](docs/guide-deploiement-wazuh.pdf)** (PDF).
 
 ## Famille « Outils Compagnon »
 
